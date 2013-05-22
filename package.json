@@ -1,0 +1,28 @@
+{
+  "name": "memcached-wrapper",
+  "description": "A simple wrapper for the node-memcached driver",
+  "version": "0.0.1",
+  "author": {
+    "name": "Patrik Ring",
+    "email": "me@patrikring.se"
+  },
+  "keywords": [
+    "memcached",
+    "wrapper",
+    "cache"
+  ],
+  "dependencies": {
+    "memcached": "*"
+  },
+  "main": "./index.js",
+  "engines": {
+    "node": ">=0.6.19"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bloglovin/node-memcached-wrapper.git"
+  },
+  "homepage": "http://www.bloglovin.com",
+  "readmeFilename": "README.md",
+  "_id": "memcached-wrapper@0.0.1"
+}
