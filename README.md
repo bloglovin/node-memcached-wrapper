@@ -3,7 +3,32 @@ node-memcached-wrapper
 
 A small memcached wrapper using node-memcached
 
-Example usage
+Documentation
+-------------
+There are 4 exposed public methods
+
+```javascript
+function get(key, callback) {}
+function set(key, value, ttl, callback) {}
+function remove(key, callback) {}
+function end() {}
+```
+
+The callback should expect one parameter, response, which will be the actual result from memcached. If false, the key did not exist, or we couldn't set the key
+
+```javascript
+function callback(resp) {
+  if (resp === false) {
+    // Nothing here to see
+  } else {
+    // Use your response
+  }
+}
+```
+
+The wrapper should make sure errors are handled in a preferable way although this far it seems like the node-memcached lib is completely incapable of handling errors at all. This is a problem.
+
+Examples
 -------------
 Init
 
