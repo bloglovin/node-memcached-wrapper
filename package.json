@@ -12,7 +12,7 @@
     "cache"
   ],
   "dependencies": {
-    "memcached": "*"
+    "git://github.com/bloglovin/node-memcached.git": "*"
   },
   "main": "./index.js",
   "engines": {
