@@ -2,6 +2,7 @@
   "name": "memcached-wrapper",
   "description": "A simple wrapper for the node-memcached driver",
   "version": "0.0.1",
+  "private": true,
   "author": {
     "name": "Patrik Ring",
     "email": "me@patrikring.se"
