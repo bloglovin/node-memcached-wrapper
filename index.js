@@ -1,6 +1,6 @@
 // @fileoverview Memcache wrapper
 
-var MemcachedClient = require('../node-memcached');
+var MemcachedClient = require('memcached');
 
 /**
  * MemcacheWrapper
@@ -11,9 +11,11 @@ var MemcachedClient = require('../node-memcached');
 var MemcachedWrapper = function (config) {
   this.Mc = null;
   this.prefix = config.options.prefix || '';
+  this.compress = config.options.compress || true; // Not used because of broken library
   var self = this;
 
   delete config.options.prefix;
+  delete config.options.compress;
 
   var getConnection = function getConnection() {
     self.Mc = new MemcachedClient(config.servers, config.options);
@@ -27,7 +29,6 @@ var MemcachedWrapper = function (config) {
     }
 
     return function(err, resp) {
-      console.log(resp);
       if (err) {
         console.log(err);
         cb(false);
@@ -49,7 +50,12 @@ var MemcachedWrapper = function (config) {
  * @param function cb
  */
 MemcachedWrapper.prototype.get = function get(key,cb) {
-  this.Mc.get(prefixKey(key), errorHandler(cb));
+  key = prefixKey(key);
+  this.Mc.get(key, function(err, resp) {
+    resp = JSON.parse(resp);
+    cb = errorHandler(cb);
+    cb(err, resp);
+  });
 }
 
 /**
