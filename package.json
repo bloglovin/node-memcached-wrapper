@@ -13,7 +13,7 @@
     "cache"
   ],
   "dependencies": {
-    "memcached": "git@github.com:bloglovin/node-memcached.git#0.2.2"
+    "memcached": "https://github.com/bloglovin/node-memcached/tarball/v0.2.2"
   },
   "main": "./index.js",
   "engines": {
