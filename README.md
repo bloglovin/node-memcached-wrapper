@@ -30,7 +30,7 @@ The wrapper should make sure errors are handled in a preferable way although thi
 
 Examples
 -------------
-Init
+**Init**
 
 ```javascript
 app.Mc = require('./memcache-wrapper')(config)
@@ -38,12 +38,14 @@ app.Mc = require('./memcache-wrapper')(config)
 app.Mc.set('test_key', 'hejsan', 1200, function(resp) {})
 ```
 
-Config 
+**Config**
 
 ```javascript
 {
   "servers": {
-    "127.0.0.1:11211":100
+    "127.0.0.1:11211":100,
+    "127.0.0.1:11212":50
+    "ip:port":weight
   },
   "options": {
     "maxKeySize":250,
@@ -57,9 +59,20 @@ Config
     "retry":3,
     "remove":true,
     "keyCompression":true,
-    "namespace:":""
+    "prefix": "prefix keys with this string, empty by default",
+    "compression": "not implemented yet"
   }
 }
 ```
 
 More documentation of options can be found at https://github.com/3rd-Eden/node-memcached
+
+Tests
+-------
+
+Depends on mocha being installed and memcached running on localhost on port 11211. Server can be changed in ./test/options.json
+
+**To test**
+
+    make test
+    
