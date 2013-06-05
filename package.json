@@ -1,7 +1,7 @@
 {
   "name": "memcached-wrapper",
   "description": "A simple wrapper for the node-memcached driver",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "author": {
     "name": "Patrik Ring",
@@ -28,5 +28,5 @@
   },
   "homepage": "http://www.bloglovin.com",
   "readmeFilename": "README.md",
-  "_id": "memcached-wrapper@0.0.1"
+  "_id": "memcached-wrapper@0.0.2"
 }
