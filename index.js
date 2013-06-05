@@ -66,6 +66,7 @@ MemcachedWrapper.prototype.get = function get(key,cb) {
  * @param function cb
  */
 MemcachedWrapper.prototype.set = function set(key, value, ttl, cb) {
+  value = JSON.stringify(value);
   this.Mc.set(prefixKey(key), value, ttl, errorHandler(cb));
 }
 
