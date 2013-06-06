@@ -22,26 +22,6 @@ var MemcachedWrapper = function (config) {
   };
 
   getConnection();
-
-  errorHandler = function(cb) {
-    if ( ! cb) {
-      var cb = function(resp) {};
-    }
-
-    return function(err, resp) {
-      if (err) {
-        console.log(err);
-        cb(false);
-      } else {
-        cb(resp);
-      }
-    }
-  }
-
-  prefixKey = function(key) {
-    key = self.prefix + key;
-    return key;
-  }
 }
 
 /**
@@ -50,10 +30,12 @@ var MemcachedWrapper = function (config) {
  * @param function cb
  */
 MemcachedWrapper.prototype.get = function get(key,cb) {
-  key = prefixKey(key);
+  key = this._prefixKey(key);
+  var self = this;
+  
   this.Mc.get(key, function(err, resp) {
     resp = JSON.parse(resp);
-    cb = errorHandler(cb);
+    cb = self._errorHandler(cb);
     cb(err, resp);
   });
 }
@@ -67,7 +49,7 @@ MemcachedWrapper.prototype.get = function get(key,cb) {
  */
 MemcachedWrapper.prototype.set = function set(key, value, ttl, cb) {
   value = JSON.stringify(value);
-  this.Mc.set(prefixKey(key), value, ttl, errorHandler(cb));
+  this.Mc.set(this._prefixKey(key), value, ttl, this._errorHandler(cb));
 }
 
 /**
@@ -77,7 +59,7 @@ MemcachedWrapper.prototype.set = function set(key, value, ttl, cb) {
  * @param function cb
  */
 MemcachedWrapper.prototype.remove = function remove(key, cb) {
-  this.Mc.del(prefixKey(key), errorHandler(cb));
+  this.Mc.del(this._prefixKey(key), this._errorHandler(cb));
 }
 
 /**
@@ -88,6 +70,28 @@ MemcachedWrapper.prototype.remove = function remove(key, cb) {
  */
 MemcachedWrapper.prototype.end = function end() {
   this.Mc.end();
+}
+
+// Private methods
+
+MemcachedWrapper.prototype._errorHandler = function(cb) {
+  if ( ! cb) {
+    var cb = function(resp) {};
+  }
+
+  return function(err, resp) {
+    if (err) {
+      console.log(err);
+      cb(false);
+    } else {
+      cb(resp);
+    }
+  }
+}
+
+MemcachedWrapper.prototype._prefixKey = function(key) {
+  key = this.prefix + key;
+  return key;
 }
 
 module.exports = function (config) {
