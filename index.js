@@ -22,7 +22,7 @@ var MemcachedWrapper = function (config) {
   };
 
   getConnection();
-}
+};
 
 /**
  * get
@@ -40,7 +40,7 @@ MemcachedWrapper.prototype.get = function get(key,cb) {
     cb = self._errorHandler(cb);
     cb(err, resp);
   });
-}
+};
 
 /**
  * set
@@ -52,7 +52,7 @@ MemcachedWrapper.prototype.get = function get(key,cb) {
 MemcachedWrapper.prototype.set = function set(key, value, ttl, cb) {
   value = JSON.stringify(value);
   this.Mc.set(this._prefixKey(key), value, ttl, this._errorHandler(cb));
-}
+};
 
 /**
  * remove
@@ -62,7 +62,7 @@ MemcachedWrapper.prototype.set = function set(key, value, ttl, cb) {
  */
 MemcachedWrapper.prototype.remove = function remove(key, cb) {
   this.Mc.del(this._prefixKey(key), this._errorHandler(cb));
-}
+};
 
 /**
  * end
@@ -72,13 +72,13 @@ MemcachedWrapper.prototype.remove = function remove(key, cb) {
  */
 MemcachedWrapper.prototype.end = function end() {
   this.Mc.end();
-}
+};
 
 // Private methods
 
 MemcachedWrapper.prototype._errorHandler = function(cb) {
-  if ( ! cb) {
-    var cb = function(resp) {};
+  if (!cb) {
+    cb = function(resp) {};
   }
 
   return function(err, resp) {
@@ -88,14 +88,15 @@ MemcachedWrapper.prototype._errorHandler = function(cb) {
     } else {
       cb(resp);
     }
-  }
-}
+  };
+};
 
 MemcachedWrapper.prototype._prefixKey = function(key) {
   key = this.prefix + key;
   return key;
-}
+};
 
 module.exports = function (config) {
   return new MemcachedWrapper(config);
-}
+};
+
