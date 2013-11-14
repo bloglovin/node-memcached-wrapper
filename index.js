@@ -34,7 +34,9 @@ MemcachedWrapper.prototype.get = function get(key,cb) {
   var self = this;
   
   this.Mc.get(key, function(err, resp) {
-    resp = JSON.parse(resp);
+    if (!err && resp) {
+      resp = JSON.parse(resp);
+    }
     cb = self._errorHandler(cb);
     cb(err, resp);
   });
